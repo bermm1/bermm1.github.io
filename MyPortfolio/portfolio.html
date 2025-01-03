@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+        body {
+            color: bisque;
+            background-color: #27374d;
+            line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+        #vanta-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 5px 5%;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+        }
+        .logo {
+            font-size: 25px;
+            color: #fc6d6d;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .navbar a {
+            font-size: 18px;
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            margin-left: 35px;
+            transition: color 0.3s ease;
+        }
+        .navbar a:hover {
+            color: #fc6d6d;
+        }
+        .navbar .nav-link.active {
+            color: #fc6d6d;
+            font-weight: bold;
+            border-bottom: 2px solid #fc6d6d;
+            transition: color 0.3s, border-bottom 0.3s;
+        }
+        section {
+            padding: 100px 10%;
+        }
+        .home {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            color: #fff;
+        }
+        .content {
+            max-width: 600px;
+            z-index: 10;
+            order: 2;
+        }
+        .content h3 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        .content h1 {
+            font-size: 65px;
+            font-weight: 700;
+            margin: 10px 0;
+            color: #fc6d6d;
+            white-space: nowrap;
+        }
+        .content p {
+            font-size: 20px;
+            font-weight: bold;
+            margin: 15px 0 20px;
+            text-align: justify;
+        }
+        .img-container {
+            width: 450px;
+            height: 450px;
+            border-radius: 50%;
+            overflow: hidden;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.8); 
+            z-index: 10;
+            margin-right: 50px;
+            order: 1;
+        }
+        .img-container:hover {
+            box-shadow: 0 0 25px rgba(255, 255, 255, 1); 
+        }
+        .img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        #about {
+            display: grid;
+            place-items: center;
+            min-height: 100vh; 
+            padding: 50px 10%; 
+            color: #fff;
+            text-align: center;
+        }
+        .about-container {
+            background: rgba(28, 42, 57, 0.7);
+            padding: 35px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.8); /* Glow effect */
+            max-width: 1000px;
+            min-height: ;
+            margin: 20px;
+            text-align: left;
+        }
+
+        .about-container h2 {
+            font-size: 35px;
+            margin-bottom: 20px;
+            color: #fc6d6d;
+            text-align: center;
+        }
+
+        .about-content {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 30px;
+        }
+
+        .text {
+            flex: 1;
+            font-size: 18px;
+            line-height: 1.6;
+            margin-right: 20px;
+            text-align: justify;
+        }
+
+        .hobbies {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .hobby {
+            text-align: center;
+        }
+
+        .hobby img {
+            width: 100%;
+            max-width: 300px;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.8); /* Image glow */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .hobby img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 25px rgba(255, 255, 255, 1); /* Brighter glow on hover */
+        }
+
+        .hobby p {
+            margin-top: 10px;
+            font-size: 16px;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        #skills {
+            display: flex;
+            padding: 50px 10%;
+            align-items: center;
+            text-align: center;
+            color: #fff;
+        }
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 40px;
+            max-width: 1000px;
+            margin: 0 auto;
+            background: rgba(28, 42, 57, 0.7);
+            padding: 35px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            transition: box-shadow 0.3s ease;
+        }
+        .skills-container:hover {
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.8); /* Rectangle glow */
+        }
+        .skill {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .skill:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.8); /* Skill glow */
+        }
+        .skill img {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+            margin-bottom: 10px;
+        }
+        .skill h3 {
+            font-size: 20px;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        .skill p {
+            font-size: 16px;
+            margin: 0;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        #projects {
+            padding: 50px 5%;
+            color: #fff;
+            text-align: center;
+        }
+
+        .projects-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(28, 42, 57, 0.7);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            transition: box-shadow 0.3s ease;
+        }
+
+        .projects-container:hover {
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+        }
+
+        .project-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            max-width: 320px;
+            margin: 0 auto;
+        }
+
+        .project-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+        }
+
+        .project-img {
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .project-img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 25px rgba(255, 255, 255, 1);
+        }
+
+        .project-content h3 {
+            font-size: 22px;
+            margin: 10px 0;
+        }
+
+        .project-content p {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 10px;
+        }
+
+        .project-content a {
+           
+            font-weight: bold;
+            text-decoration: none;
+            background-color: #fc6d6d;
+            padding: 10px 20px;
+            border-radius: 5px;
+            display: inline-block;
+            margin-top: 10px;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .project-content a:hover {
+            background-color: #e55b5b;
+            transform: scale(1.05);
+        }
+
+        #contact {
+            padding: 50px 10%;
+            color: #fff;
+            text-align: center;
+        }
+
+        #contact h2 {
+            font-size: 35px;
+            margin-bottom: 20px;
+            color: #fc6d6d;
+        }
+
+        form {
+            display: grid;
+            gap: 20px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        form div {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        label {
+            font-weight: bold;
+            text-align: left;
+            margin-bottom: 5px;
+        }
+
+        input, textarea {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            margin-top: 5px;
+            font-size: 16px;
+            width: 100%;
+        }
+
+        button {
+            background-color: #fc6d6d;
+            color: white;
+            padding: 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            max-width: 200px;
+            align-self: end;
+            justify-self: end;
+        }
+
+        button:hover {
+            background-color: #e55b5b;
+        }
+
+        footer {
+            background: rgba(28, 42, 57, 0.7);
+            color: #fff;
+            text-align: center;
+            padding: 30px 10%; /* Adjust this to control the vertical padding */
+            margin-top: 50px; /* Ensures it stays at the bottom of the page */
+            min-height: 100px; /* Sets a minimum height for the footer */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            z-index: 10;
+        }
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+        }
+        .social-icons a {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+        }
+        .social-icons img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            transition: transform 0.3s ease, filter 0.3s ease;
+        }
+        .social-icons img:hover {
+            transform: scale(1.1);
+            filter: brightness(1.2);
+        }
+        .social-icons a:nth-child(1):hover img { /* Facebook */
+            filter: drop-shadow(0 0 10px #4267B2);
+        }
+        .social-icons a:nth-child(2):hover img { /* Instagram */
+            filter: drop-shadow(0 0 10px #E1306C);
+        }
+        .social-icons a:nth-child(3):hover img { /* Gmail */
+            filter: drop-shadow(0 0 10px #D14836);
+        }
+        @media (max-width: 750px) {
+            .header {
+                flex-direction: column;
+                padding: 10px 5%;
+            }
+            .navbar a {
+                margin-left: 15px;
+            }
+            .home {
+                flex-direction: column-reverse;
+                text-align: center;
+            }
+            .content h1 {
+                font-size: 45px;
+            }
+            .content p {
+                font-size: 18px;
+            }
+            .img-container {
+                width: 300px;
+                height: 300px;
+                margin: 20px auto;
+                order: 1;
+            }
+            .about-content {
+                flex-direction: column;
+            }
+
+           
+        }
+
+        @media (max-width: 650px) {
+            .navbar {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .content h1 {
+                font-size: 35px;
+            }
+            .skills-container {
+                grid-template-columns: 1fr;
+            }
+            .projects-container {
+                grid-template-columns: 1fr;
+            }
+            form div {
+                flex-direction: column;
+            }
+            label {
+                font-size: 14px;
+            }
+            input, textarea {
+                font-size: 14px;
+            }
+            button {
+                font-size: 16px;
+            }
+        }
+
+
+        
+    </style>
+</head>
+<body>
+    <div id="vanta-bg"></div>
+    <header class="header">
+        <a href="#" class="logo">Bermilyn</a>
+        <nav class="navbar">
+            <a href="#home" class="nav-link">Home</a>
+            <a href="#about"class="nav-link">About</a>
+            <a href="#skills" class="nav-link">Skills</a>
+            <a href="#projects" class="nav-link">Project</a>
+            <a href="#contact" class="nav-link">Contact</a>
+        </nav>
+    </header>
+    <main>
+        <section id="home" class="home">
+            <div class="content">
+                <h3>Hello, It's Me</h3>
+                <h1>Bermilyn Codinera</h1>
+                <p>I'm a 2nd-year BSIT student at Eastern Visayas State University (EVSU).
+                    I'm passionate about learning and growing in the field of technology.
+                    As a beginner, I'm exploring programming, web development, and IT fundamentals.<br><br>
+                </p>
+            </div>
+            <div class="img-container">
+                <img src="mypicture.jpg" alt="Profile Picture">
+            </div>
+        </section>
+
+        <section id="about">
+            <div class="about-container">
+                <h2>About Me</h2>
+                <div class="about-content">
+                    <div class="text">
+                        <p>
+                            Hi! I'm Bermilyn Codinera, a 2nd-year BSIT student at Eastern Visayas State University (EVSU). 
+                            From a young age, I've been fascinated by how things work, and that curiosity has led me to 
+                            explore the world of programming. I love learning about technology and discovering how it works. 
+                            I'm just starting my journey in programming, web development, and IT basics. I enjoy building 
+                            websites, solving problems, and improving my skills every day.  When I'm not coding, you'll 
+                            find me enjoying online games, where I can unwind and connect with friends. I also spend time 
+                            watching tutorials and reading about new developments in the tech world. This helps me stay 
+                            updated and learn new techniques that I can apply to my projects.
+                        
+                    </div>
+                    <div class="hobbies">
+                        <div class="hobby">
+                            <img src="hehe.jpg" alt="Playing Games">
+                            <p>Playing Online Games</p>
+                        </div>
+                        <div class="hobby">
+                            <img src="huhu.jpg" alt="Watching Tutorials">
+                            <p>Watching Tutorials</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills">
+            <div class="skills-container">
+                <div class="skill">
+                    <img src="html.png" alt="HTML Icon">
+                    <h3>HTML</h3>
+                    <p>Crafting the foundation of web pages with clean, semantic code.</p>
+                </div>
+                <div class="skill">
+                    <img src="css.png" alt="CSS Icon">
+                    <h3>CSS</h3>
+                    <p>Styling websites with modern, responsive designs.</p>
+                </div>
+                <div class="skill">
+                    <img src="js.png" alt="JavaScript Icon">
+                    <h3>JavaScript</h3>
+                    <p>Adding interactivity and dynamic features to web applications.</p>
+                </div>
+                <div class="skill">
+                    <img src="python.png" alt="Python Icon">
+                    <h3>Python</h3>
+                    <p>Solving problems and building efficient backend systems.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects">
+            <br><br>
+            <div class="projects-container">
+                <div class="project-card">
+                    <img src="library.png" alt="Library Management System" class="project-img">
+                    <div class="project-content">
+                        <h3>Library Management System</h3>
+                        <p>A system for managing books in a library, borrowing and returning books.</p>
+                        <a href="https://github.com/bermm1/LibraryManagementSystem" target="_blank" class="btn">View on GitHub</a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <img src="biodata.png" alt="Biodata Form" class="project-img">
+                    <div class="project-content">
+                        <h3>Biodata Form</h3>
+                        <p>A simple form to collect and display personal details.</p>
+                        <a href="https://github.com/bermm1/BioData" target="_blank" class="btn">View on GitHub</a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <img src="calcu.png" alt="Calculator" class="project-img">
+                    <div class="project-content">
+                        <h3>Calculator</h3>
+                        <p>A basic calculator with basic arithmetic operations.</p>
+                        <a href="https://github.com/bermm1/Calculator" target="_blank" class="btn">View on GitHub</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="contact">
+            <br><br><br>
+            <h2>Contact Me</h2>
+            <br>
+            <form action="mailto:codinerabermilyn@gmail.com" method="POST" enctype="multipart/form-data">
+                <div>
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div>
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div>
+                    <label for="message">Message:</label>
+                    <textarea id="message" name="message" rows="4" required></textarea>
+                </div>
+                <button type="submit">Send Message</button>
+            </form>
+        </section>
+    </main>
+    <footer>
+        <div class="social-icons">
+            <a href="https://www.facebook.com/bermcodinera" target="_blank">
+                <img src="facebook.png" alt="Facebook">
+            </a>
+            <a href="https://www.instagram.com/lvjay3_/" target="_blank">
+                <img src="instagram.png" alt="Instagram">
+            </a>
+            <a href="mailto:codinerabermilyn@gmail.com" target="_blank">
+                <img src="gmail.png" alt="Gmail">
+            </a>
+        </div>
+        <br>
+        <p>&copy; 2025 Bermilyn Codinera. All Rights Reserved.</p>
+    </footer>
+    
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta/dist/vanta.net.min.js"></script>
+
+    <script>
+        // Initialize Vanta.js
+        VANTA.NET({
+            el: "#vanta-bg", 
+            mouseControls: true,
+            touchControls: true,
+            gyroControls: false,
+            color: 0x0ff0c0,
+            backgroundColor: 0x27374d
+        });
+    </script>
+    <script>
+        // Highlight active navigation link
+        const sections = document.querySelectorAll("section");
+        const navLinks = document.querySelectorAll(".nav-link");
+    
+        window.addEventListener("scroll", () => {
+            let currentSection = "";
+    
+            // Identify the section in the viewport
+            sections.forEach((section) => {
+                const sectionTop = section.offsetTop - 100;
+                if (window.scrollY >= sectionTop) {
+                    currentSection = section.getAttribute("id");
+                }
+            });
+    
+            // Remove 'active' class from all links
+            navLinks.forEach((link) => {
+                link.classList.remove("active");
+                if (link.getAttribute("href") === `#${currentSection}`) {
+                    link.classList.add("active");
+                }
+            });
+        });
+    </script>
+    
+</body>
+</html>
